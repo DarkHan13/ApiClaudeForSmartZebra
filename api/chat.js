@@ -29,7 +29,17 @@ export default async function handler(req, res)
         });
 
         return res.status(200).json({
-            answer: response.content[0].text
+            answer: response.content[0].text,
+
+            meta: {
+            id: response.id,
+            model: response.model,
+            stop_reason: response.stop_reason,
+            input_tokens: response.usage.input_tokens,
+            output_tokens: response.usage.output_tokens
+        },
+
+        raw: response
         });
     }
     catch(error)
