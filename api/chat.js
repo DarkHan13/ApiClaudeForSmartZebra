@@ -37,7 +37,7 @@ export default async function handler(req, res)
             stop_reason: response.stop_reason,
             input_tokens: response.usage.input_tokens,
             output_tokens: response.usage.output_tokens
-        },
+            },
 
         raw: response
         });
