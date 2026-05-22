@@ -6,6 +6,11 @@ const anthropic = new Anthropic({
 
 export default async function handler(req, res)
 {
+
+        return res.status(405).json({
+            error: "Deprecated endpoint."
+        });
+
     if (req.method !== "POST")
     {
         return res.status(405).json({
