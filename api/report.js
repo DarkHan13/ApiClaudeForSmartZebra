@@ -19,8 +19,8 @@ export default async function handler(req, res)
     {
         const data = req.body;
 
-        let fileName = data.reportType === "first" ? process.env.first_PROMPT_File_NAME 
-            : process.env.PROMPT_File_NAME;
+        let fileName = data.reportType === "first" ? process.env.FIRST_PROMPT_FILE_NAME
+            : process.env.PROMPT_FILE_NAME;
 
         console.log("Received data:", data);
         console.log("Using prompt file:", fileName);
