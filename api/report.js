@@ -22,8 +22,8 @@ export default async function handler(req, res)
         let fileName = data.reportType === "first" ? process.env.FIRST_PROMPT_FILE_NAME
             : process.env.PROMPT_FILE_NAME;
 
-        console.log("Received data:", data);
-        console.log("Using prompt file:", fileName);
+        //console.log("Received data:", data);
+        //console.log("Using prompt file:", fileName);
 
         const promptPath = path.join(
             process.cwd(),
@@ -50,10 +50,10 @@ export default async function handler(req, res)
             .replace("lastReport", data.lastReport)
             .replace("{answers}", answersText);
 
-        console.log("Prompt:", prompt);
+        /* console.log("Prompt:", prompt);
         return res.status(200).json({
             answer: "Fake answer for testing purposes",
-         });
+         }); */
 
         const response =
         await anthropic.messages.create({
