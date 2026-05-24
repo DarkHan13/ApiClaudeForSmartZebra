@@ -19,11 +19,18 @@ export default async function handler(req, res)
     {
         const data = req.body;
 
-        let fileName = data.reportType === "first" ? process.env.FIRST_PROMPT_FILE_NAME
-            : process.env.PROMPT_FILE_NAME;
+        let claudeModel = "claude-opus-4-6";
+        let fileName = process.env.PROMPT_FILE_NAME;
 
-        //console.log("Received data:", data);
-        //console.log("Using prompt file:", fileName);
+        if (data.reportType === "first") {
+            console.log(process.env.FIRST_PROMPT_FILE_NAME);
+            fileName = process.env.FIRST_PROMPT_FILE_NAME;
+            claudeModel = "claude-haiku-4-5";
+        }
+
+        console.log("Report type:", data.reportType);
+        console.log("Using prompt file:", fileName);
+        console.log("Claude model:", claudeModel);
 
         const promptPath = path.join(
             process.cwd(),
@@ -50,14 +57,17 @@ export default async function handler(req, res)
             .replace("lastReport", data.lastReport)
             .replace("{answers}", answersText);
 
-        /* console.log("Prompt:", prompt);
-        return res.status(200).json({
+
+
+        // console.log("Prompt:", prompt);
+        /* return res.status(200).json({
             answer: "Fake answer for testing purposes",
-         }); */
+         }); */ 
+
 
         const response =
         await anthropic.messages.create({
-            model:"claude-opus-4-6",
+            model:claudeModel,
             max_tokens:500,
             messages:[
             {
@@ -65,7 +75,6 @@ export default async function handler(req, res)
                 content:prompt
             }]
         });
-
         return res.status(200).json({
             answer:response.content[0].text,
 
