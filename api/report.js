@@ -19,13 +19,13 @@ export default async function handler(req, res)
     {
         const data = req.body;
 
-        let claudeModel = "claude-opus-4-6";
+        let claudeModel = "claude-sonnet-4-6";
         let fileName = process.env.PROMPT_FILE_NAME;
 
         if (data.reportType === "first") {
             console.log(process.env.FIRST_PROMPT_FILE_NAME);
             fileName = process.env.FIRST_PROMPT_FILE_NAME;
-            claudeModel = "claude-haiku-4-5";
+            claudeModel = "claude-haiku-4-5-20251001";
         }
 
         console.log("Report type:", data.reportType);
@@ -54,7 +54,7 @@ export default async function handler(req, res)
             .replace("{language}", data.language)
             .replace("{week}", data.weekNumber + " неделя")
             .replace("{totalQuestions}", data.answers.length)
-            .replace("lastReport", data.lastReport)
+            .replace("{lastReport}", data.lastReport)
             .replace("{answers}", answersText);
 
 
