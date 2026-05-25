@@ -34,7 +34,7 @@
 Имя: {child_name}
 Возраст: {age}
 Пол: {gender}
-Период: {period}
+Период: {week}
 
 События обучения:
 {answers}
