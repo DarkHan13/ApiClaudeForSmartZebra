@@ -44,6 +44,12 @@ export default async function handler(req, res)
                 "utf8"
             );
 
+        const structuresDir = path.join(process.cwd(), "prompts", "structures");
+        const structureFiles = await fs.readdir(structuresDir);
+        const structureIndex = data.weekNumber % structureFiles.length;
+        const structure = await fs.readFile(
+        path.join(structuresDir, structureFiles[structureIndex]), "utf8"
+        
         const answersText = JSON.stringify(data.answers);
 
         prompt = prompt
@@ -56,8 +62,7 @@ export default async function handler(req, res)
             .replace("{totalQuestions}", data.answers.length)
             .replace("{lastReport}", data.lastReport)
             .replace("{answers}", answersText);
-
-
+            .replace("{structure}", structure);
 
         // console.log("Prompt:", prompt);
         /* return res.status(200).json({
