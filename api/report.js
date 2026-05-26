@@ -25,7 +25,7 @@ export default async function handler(req, res)
         if (data.reportType === "first") {
             console.log(process.env.FIRST_PROMPT_FILE_NAME);
             fileName = process.env.FIRST_PROMPT_FILE_NAME;
-            claudeModel = "claude-haiku-4-5-20251001";
+            claudeModel = "claude-haiku-4-5";
         }
 
         console.log("Report type:", data.reportType);
@@ -48,8 +48,7 @@ export default async function handler(req, res)
         const structureFiles = await fs.readdir(structuresDir);
         const structureIndex = data.weekNumber % structureFiles.length;
         const structure = await fs.readFile(
-        path.join(structuresDir, structureFiles[structureIndex]), "utf8"
-        
+        path.join(structuresDir, structureFiles[structureIndex]), "utf8");
         const answersText = JSON.stringify(data.answers);
 
         prompt = prompt
@@ -61,7 +60,7 @@ export default async function handler(req, res)
             .replace("{week}", data.weekNumber + " неделя")
             .replace("{totalQuestions}", data.answers.length)
             .replace("{lastReport}", data.lastReport)
-            .replace("{answers}", answersText);
+            .replace("{answers}", answersText)
             .replace("{structure}", structure);
 
         // console.log("Prompt:", prompt);
