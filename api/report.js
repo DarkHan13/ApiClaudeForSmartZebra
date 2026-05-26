@@ -25,7 +25,7 @@ export default async function handler(req, res)
         if (data.reportType === "first") {
             console.log(process.env.FIRST_PROMPT_FILE_NAME);
             fileName = process.env.FIRST_PROMPT_FILE_NAME;
-            claudeModel = "claude-haiku-4-5";
+            claudeModel = "claude-haiku-4-5-20251001";
         }
 
         console.log("Report type:", data.reportType);
